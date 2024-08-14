@@ -1,3 +1,22 @@
+create table ani_place (
+    id int(10) NOT NULL AUTO_INCREMENT comment '장소 고유번호',
+    name varchar(100) NOT NULL comment '장소 이름',
+    type enum('R','I','E') NOT NULL comment '장소 타입(R:Regular,I:Irregular,E:Etc)',
+    address varchar(255) NULL comment '장소 주소',
+    phone_number varchar(150) NULL comment '장소 연락처',
+    created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
+    updated_date timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL comment '업데이트일',
+    primary key (id)
+) COMMENT '봉사장소' collate = utf8mb4_bin;
+
+create table ani_subway (
+    id int(10) NOT NULL AUTO_INCREMENT comment '지하철역 고유번호',
+    city varchar(50) NOT NULL comment '도시명',
+    name varchar(150) NOT NULL comment '지하철역 이름',
+    created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
+    primary key (id)
+) COMMENT '지하철 정보' collate = utf8mb4_bin;
+
 create table ani_users (
     id int(10) NOT NULL AUTO_INCREMENT comment '회원 고유번호',
     user_code varchar(50) NOT NULL comment '회원 코드',
@@ -11,7 +30,8 @@ create table ani_users (
     use_car int(2) NULL comment '차량 여부',
     created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
     updated_date timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL comment '업데이트일',
-    primary key (id)
+    primary key (id),
+    constraint ani_users_fk1 foreign key (subway_id) REFERENCES ani_subway(id)
 ) COMMENT '회원정보' collate = utf8mb4_bin;
 
 create table ani_volunteer_events (
@@ -28,7 +48,9 @@ create table ani_volunteer_events (
     created_by int(10) NOT NULL comment '생성한 매니저 고유번호',
     created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
     updated_date timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL comment '업데이트일',
-    primary key (id)
+    primary key (id),
+    constraint ani_volunteer_events_fk1 foreign key (place_id) REFERENCES ani_place(id),
+    constraint ani_volunteer_events_fk2 foreign key (created_by) REFERENCES ani_users(id)
 ) COMMENT '봉사정보' collate = utf8mb4_bin;
 
 create table ani_volunteer_regists (
@@ -39,5 +61,13 @@ create table ani_volunteer_regists (
     use_car tinyint NOT NULL default 0 comment '차량 지원(0:Not Use, 1:Use)',
     memo text NULL comment '메모',
     created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
-    primary key (id)
+    primary key (id),
+    constraint ani_volunteer_regists_fk1 foreign key (events_id) REFERENCES ani_volunteer_events(id),
+    constraint ani_volunteer_regists_fk2 foreign key (users_id) REFERENCES ani_users(id)
 ) COMMENT '봉사신청' collate = utf8mb4_bin;
+
+
+create table ani_invite_user (
+    user_id int(10) NOT NULL comment '유저 고유번호',
+    invite_user_id int(10) NOT NULL comment '초대한 유저 고유번호'
+) COMMENT '초대 유저' collate = utf8mb4_bin;
