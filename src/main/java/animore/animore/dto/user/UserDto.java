@@ -1,4 +1,4 @@
-package animore.animore.dto;
+package animore.animore.dto.user;
 
 import lombok.Builder;
 import lombok.Data;
