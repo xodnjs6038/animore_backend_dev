@@ -2,7 +2,6 @@ package animore.animore.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 
 import animore.animore.dto.user.UserDto;
 import animore.animore.dto.user.request.CreateUserDto;
@@ -10,11 +9,7 @@ import animore.animore.model.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-	UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
 	UserDto toDto(User user);
-
-	User toEntity(UserDto userDto);
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "type", ignore = true)
