@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import animore.animore.dto.user.UserDto;
 import animore.animore.dto.user.request.CreateUserDto;
+import animore.animore.dto.user.request.UpdateUserDto;
 import animore.animore.mapper.UserMapper;
 import animore.animore.model.User;
 import animore.animore.service.UserService;
@@ -50,11 +50,11 @@ public class UserController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
-		return ResponseEntity.ok(userMapper.toDto(userService.updateUser(id, userDetails)));
+	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @ModelAttribute UpdateUserDto updateUserDto) {
+		return ResponseEntity.ok(userMapper.toDto(userService.updateUser(id, updateUserDto)));
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
 		userService.deleteUser(id);
 		return ResponseEntity.ok().build();
