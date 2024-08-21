@@ -35,6 +35,7 @@ public class User {
 	private Long subwayId;
 	@Builder.Default
 	private Long useCar = 0L;
+	@Builder.Default
 	private LocalDateTime createdDate = LocalDateTime.now();
 	private LocalDateTime updatedDate;
 }
