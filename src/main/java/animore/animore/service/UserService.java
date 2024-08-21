@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import animore.animore.dto.user.request.CreateUserDto;
+import animore.animore.dto.user.request.UpdateUserDto;
 import animore.animore.mapper.UserMapper;
 import animore.animore.model.User;
 import animore.animore.repository.UserRepository;
@@ -29,18 +30,29 @@ public class UserService {
 
 	public User createUser(CreateUserDto createUserDto) {
 		User user = userMapper.toEntity(createUserDto);
-		System.out.println(user);
+		user.setUserCode(createUserCode());
 		return userRepository.save(user);
 	}
 
-	public User updateUser(Long id, User userDetails) {
+	public User updateUser(Long id, UpdateUserDto updateUserDto) {
 		User user = userRepository.findById(id)
 			.orElseThrow(() -> new RuntimeException("User Not Found"));
 
-		user.setName(userDetails.getName());
-		user.setPhoneNumber(userDetails.getPhoneNumber());
-		user.setSubwayId(userDetails.getSubwayId());
-		user.setUseCar(userDetails.getUseCar());
+		if (updateUserDto.getName() != null) {
+			user.setName(updateUserDto.getName());
+		}
+
+		if (updateUserDto.getPhoneNumber() != null) {
+			user.setPhoneNumber(updateUserDto.getPhoneNumber());
+		}
+
+		if (updateUserDto.getSubwayId() != null) {
+			user.setSubwayId(updateUserDto.getSubwayId());
+		}
+
+		if (updateUserDto.getUseCar() != null) {
+			user.setUseCar(updateUserDto.getUseCar());
+		}
 
 		return userRepository.save(user);
 	}
@@ -49,5 +61,22 @@ public class UserService {
 		User user = userRepository.findById(id)
 			.orElseThrow(() -> new RuntimeException("User Not Found"));
 		userRepository.delete(user);
+	}
+
+	private String createUserCode() {
+		String userCodePrefix = "Ani";
+		String userCode;
+		User existingUser;
+		int randomNumber;
+
+		do {
+			randomNumber = (int)(Math.random() * 900) + 100;
+			userCode = userCodePrefix + randomNumber;
+
+			existingUser = userRepository.findByUserCode(userCode);
+
+		} while (existingUser != null);
+
+		return userCode;
 	}
 }
