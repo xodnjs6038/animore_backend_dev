@@ -1,4 +1,4 @@
-package animore.animore.service;
+package com.animore.service;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,11 +6,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import animore.animore.dto.user.request.CreateUserDto;
-import animore.animore.dto.user.request.UpdateUserDto;
-import animore.animore.mapper.UserMapper;
-import animore.animore.model.User;
-import animore.animore.repository.UserRepository;
+import com.animore.dto.user.request.CreateUserDto;
+import com.animore.dto.user.request.UpdateUserDto;
+import com.animore.mapper.UserMapper;
+import com.animore.model.User;
+import com.animore.repository.UserRepository;
 
 @Service
 public class UserService {

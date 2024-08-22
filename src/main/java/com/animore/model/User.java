@@ -1,4 +1,4 @@
-package animore.animore.model;
+package com.animore.model;
 
 import java.time.LocalDateTime;
 

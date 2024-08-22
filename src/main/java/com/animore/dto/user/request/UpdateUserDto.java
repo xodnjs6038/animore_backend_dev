@@ -1,4 +1,4 @@
-package animore.animore.dto.user.request;
+package com.animore.dto.user.request;
 
 import org.springframework.format.annotation.NumberFormat;
 

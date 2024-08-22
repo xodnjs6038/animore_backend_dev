@@ -1,9 +1,9 @@
-package animore.animore.repository;
+package com.animore.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import animore.animore.model.User;
+import com.animore.model.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
