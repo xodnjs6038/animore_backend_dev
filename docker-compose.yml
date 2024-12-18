@@ -1,3 +1,28 @@
+<<<<<<< HEAD
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./build/libs:/app
+    ports:
+      - "8081:8080"
+=======
 version: '3'
 
 services:
@@ -27,14 +52,23 @@ services:
     build: .
     ports:
       - "8000:8080"
+>>>>>>> c13da433582b3a11477c56b65d1ed353e827709e
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     depends_on:
+<<<<<<< HEAD
+      - db
+    command: [ "java", "-jar", "/app/app.jar" ]
+
+volumes:
+  db_data:
+=======
       - database
     networks:
       - ltw_network
 
 networks:
   ltw_network:
+>>>>>>> c13da433582b3a11477c56b65d1ed353e827709e
