@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 version: '3.8'
 services:
   db:
@@ -21,13 +22,53 @@ services:
       - ./build/libs:/app
     ports:
       - "8081:8080"
+=======
+version: '3'
+
+services:
+  database:
+    container_name: animore_dev
+    image: mysql/mysql-server:8.0
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      TZ: 'Asia/Seoul'
+    ports:
+      - "3305:3306"
+    command:
+      - "mysqld"
+      - "--default-authentication-plugin=mysql_native_password"
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+    volumes:
+      - "./mysql/conf.d:/etc/mysql/conf.d/my.cnf"
+      - "./mysql/initdb.d:/docker-entrypoint-initdb.d"
+    networks:
+      - ltw_network
+
+  application:
+    container_name: docker-compose-test
+    build: .
+    ports:
+      - "8000:8080"
+>>>>>>> c13da433582b3a11477c56b65d1ed353e827709e
     environment:
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
     depends_on:
+<<<<<<< HEAD
       - db
     command: [ "java", "-jar", "/app/app.jar" ]
 
 volumes:
   db_data:
+=======
+      - database
+    networks:
+      - ltw_network
+
+networks:
+  ltw_network:
+>>>>>>> c13da433582b3a11477c56b65d1ed353e827709e
