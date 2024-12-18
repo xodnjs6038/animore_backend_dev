@@ -1,16 +1,17 @@
 spring:
+  server:
+    port:8081
+
   application:
     name: animore
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3305/animore
-    username: root
+    url: jdbc:mysql://localhost:3306/animore
+    username: animore
     password: 1234
 
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
-    properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect

@@ -1,11 +1,11 @@
-package animore.animore.config.app;
+package com.animore.config.app;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import animore.animore.mapper.UserMapper;
-import animore.animore.mapper.UserMapperImpl;
-import animore.animore.service.UserService;
+import com.animore.mapper.UserMapper;
+import com.animore.mapper.UserMapperImpl;
+import com.animore.service.UserService;
 
 @Configuration
 public class AppConfig {
