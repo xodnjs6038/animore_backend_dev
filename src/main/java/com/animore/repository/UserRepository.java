@@ -8,4 +8,6 @@ import com.animore.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	User findByUserCode(String userCode);
+
+	User findByEmail(String email);
 }

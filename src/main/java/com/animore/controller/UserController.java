@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -44,13 +44,13 @@ public class UserController {
 	}
 
 	@PostMapping("/create")
-	public UserDto createUser(@ModelAttribute CreateUserDto userDto) {
+	public UserDto createUser(@RequestBody CreateUserDto userDto) {
 		User createdUser = userService.createUser(userDto);
 		return userMapper.toDto(createdUser);
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @ModelAttribute UpdateUserDto updateUserDto) {
+	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
 		return ResponseEntity.ok(userMapper.toDto(userService.updateUser(id, updateUserDto)));
 	}
 
