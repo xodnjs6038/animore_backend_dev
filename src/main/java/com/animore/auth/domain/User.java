@@ -1,4 +1,4 @@
-package com.animore.model;
+package com.animore.auth.domain;
 
 import java.time.LocalDateTime;
 

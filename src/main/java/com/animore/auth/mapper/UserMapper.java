@@ -1,11 +1,11 @@
-package com.animore.mapper;
+package com.animore.auth.mapper;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.animore.dto.user.UserDto;
-import com.animore.dto.user.request.CreateUserDto;
-import com.animore.model.User;
+import com.animore.auth.domain.User;
+import com.animore.auth.dto.CreateUserDto;
+import com.animore.auth.dto.UserDto;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {

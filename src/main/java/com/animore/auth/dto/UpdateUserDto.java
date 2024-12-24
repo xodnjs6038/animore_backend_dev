@@ -1,4 +1,4 @@
-package com.animore.dto.user.request;
+package com.animore.auth.dto;
 
 import org.springframework.format.annotation.NumberFormat;
 

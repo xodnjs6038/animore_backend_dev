@@ -1,4 +1,4 @@
-package com.animore.dto.auth.request;
+package com.animore.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
