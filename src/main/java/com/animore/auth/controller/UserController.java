@@ -1,4 +1,4 @@
-package com.animore.controller;
+package com.animore.auth.controller;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animore.dto.user.UserDto;
-import com.animore.dto.user.request.CreateUserDto;
-import com.animore.dto.user.request.UpdateUserDto;
-import com.animore.mapper.UserMapper;
-import com.animore.model.User;
-import com.animore.service.UserService;
+import com.animore.auth.application.UserService;
+import com.animore.auth.domain.User;
+import com.animore.auth.dto.CreateUserDto;
+import com.animore.auth.dto.UpdateUserDto;
+import com.animore.auth.dto.UserDto;
+import com.animore.auth.mapper.UserMapper;
 
 @RestController
 @RequestMapping("/api/user")

@@ -1,4 +1,4 @@
-package com.animore.dto.user;
+package com.animore.auth.dto;
 
 import java.time.LocalDateTime;
 

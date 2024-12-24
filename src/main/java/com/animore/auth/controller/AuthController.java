@@ -1,4 +1,6 @@
-package com.animore.controller;
+package com.animore.auth.controller;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.animore.dto.auth.request.PostAuthDto;
-import com.animore.model.User;
-import com.animore.service.AuthService;
+import com.animore.auth.application.AuthService;
+import com.animore.auth.dto.PostAuthDto;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -20,7 +21,7 @@ public class AuthController {
 
 	@PostMapping
 	public ResponseEntity<String> postAuth(@RequestBody PostAuthDto postAuthDto) {
-		User getAuth = authService.postAuth(postAuthDto);
-		return ResponseEntity.ok().body(getAuth.toString());
+		String token = authService.postAuth(postAuthDto);
+		return ResponseEntity.ok(Map.of("token", token).toString());
 	}
 }
