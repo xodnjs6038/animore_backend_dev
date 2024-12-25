@@ -15,8 +15,6 @@ public interface UserMapper {
 	@Mapping(target = "type", ignore = true)
 	@Mapping(target = "status", ignore = true)
 	@Mapping(target = "userCode", ignore = true)
-	@Mapping(target = "useCar", ignore = true)
-	@Mapping(target = "subwayId", ignore = true)
 	@Mapping(target = "createdDate", ignore = true)
 	@Mapping(target = "updatedDate", ignore = true)
 	User toEntity(CreateUserDto createUserDto);
