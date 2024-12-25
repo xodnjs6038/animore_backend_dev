@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.animore.auth.domain.User;
@@ -19,6 +20,8 @@ public class UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
@@ -30,6 +33,7 @@ public class UserService {
 
 	public User createUser(CreateUserDto createUserDto) {
 		User user = userMapper.toEntity(createUserDto);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setUserCode(createUserCode());
 		return userRepository.save(user);
 	}
