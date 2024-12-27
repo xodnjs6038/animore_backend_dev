@@ -21,8 +21,11 @@ import com.animore.auth.dto.UpdateUserDto;
 import com.animore.auth.dto.UserDto;
 import com.animore.auth.mapper.UserMapper;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+
 @RestController
 @RequestMapping("/api/user")
+@SecurityRequirement(name = "Bearer Authentication")
 public class UserController {
 	@Autowired
 	private UserService userService;
