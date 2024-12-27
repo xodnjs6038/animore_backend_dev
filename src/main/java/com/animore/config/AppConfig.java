@@ -1,4 +1,4 @@
-package com.animore.config.app;
+package com.animore.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

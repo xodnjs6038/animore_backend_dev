@@ -3,8 +3,12 @@ package com.animore.auth.infrastructure;
 import static com.animore.exception.ErrorCode.*;
 
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
 
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -36,6 +40,41 @@ public class JwtUtil {
 			.setExpiration(new Date(System.currentTimeMillis() + (1000L * 60 * 60 * 24 * 365)))
 			.signWith(key)
 			.compact();
+	}
+
+	/*
+	JWT Claims Return
+	@return Claims
+	 */
+	public Claims extractClaims(String token) {
+		return Jwts.parserBuilder()
+			.setSigningKey(key)
+			.build()
+			.parseClaimsJws(token)
+			.getBody();
+	}
+
+	/*
+	JWT Validate Result
+	@return boolean
+	 */
+	public Authentication validateToken(String token) {
+		try {
+			Claims claims = extractClaims(token);
+			Date expiration = claims.getExpiration();
+			if (expiration.before(new Date())) {
+				throw new RuntimeException("Token has expired");
+			}
+			String username = claims.getSubject();
+
+			return new UsernamePasswordAuthenticationToken(
+				username,
+				null,
+				Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"))
+			);
+		} catch (Exception e) {
+			throw new RuntimeException("Invalid token: " + e.getMessage());
+		}
 	}
 
 	/*
