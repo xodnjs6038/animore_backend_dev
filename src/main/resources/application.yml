@@ -1,0 +1,22 @@
+spring:
+  server:
+    port:8081
+
+  application:
+    name: animore
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/animore
+    username: animore
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+jwt:
+  header: Authorization
+  secret: C%K&/gaHLl=-hZD?7V;e'Q-8~#TwV~/:O4JJ(Vv``!My45/3E]mk>cjnD%7|[7o
+  token-validity-in-seconds: 86400
