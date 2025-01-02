@@ -1,0 +1,7 @@
+build
+.gradle
+.env
+*.log
+.DS_STORE
+
+/src/main/resources/application.yml
