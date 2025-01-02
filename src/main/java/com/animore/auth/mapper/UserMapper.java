@@ -1,5 +1,7 @@
 package com.animore.auth.mapper;
 
+import java.util.List;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -9,6 +11,9 @@ import com.animore.auth.dto.UserDto;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
+
+	List<UserDto> toDtoList(List<User> users);
+
 	UserDto toDto(User user);
 
 	@Mapping(target = "id", ignore = true)

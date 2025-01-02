@@ -1,7 +1,6 @@
 package com.animore.auth.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +19,13 @@ import com.animore.auth.dto.CreateUserDto;
 import com.animore.auth.dto.UpdateUserDto;
 import com.animore.auth.dto.UserDto;
 import com.animore.auth.mapper.UserMapper;
+import com.animore.common.ApiResponse;
+import com.animore.common.ResponseUtil;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api")
 @SecurityRequirement(name = "Bearer Authentication")
 public class UserController {
 	@Autowired
@@ -32,34 +33,38 @@ public class UserController {
 	@Autowired
 	private UserMapper userMapper;
 
-	@GetMapping
-	public List<UserDto> getAllUsers() {
-		return userService.getAllUsers().stream()
-			.map(user -> userMapper.toDto(user))
-			.collect(Collectors.toList());
+	@GetMapping("users")
+	public ResponseEntity<ApiResponse<List<UserDto>>> getAllUsers() {
+		List<User> data = userService.getAllUsers();
+		List<UserDto> result = userMapper.toDtoList(data);
+		return ResponseUtil.success(result);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-		return userService.getUserById(id)
-			.map(user -> ResponseEntity.ok().body(userMapper.toDto(user)))
-			.orElse(ResponseEntity.notFound().build());
+	@GetMapping("user/{id}")
+	public ResponseEntity<ApiResponse<UserDto>> getUserById(@PathVariable Long id) {
+		User data = userService.getUserById(id);
+		UserDto result = userMapper.toDto(data);
+		return ResponseUtil.success(result);
 	}
 
-	@PostMapping("/create")
-	public UserDto createUser(@RequestBody CreateUserDto userDto) {
+	@PostMapping("user/create")
+	public ResponseEntity<ApiResponse<UserDto>> createUser(@RequestBody CreateUserDto userDto) {
 		User createdUser = userService.createUser(userDto);
-		return userMapper.toDto(createdUser);
+		UserDto result = userMapper.toDto(createdUser);
+		return ResponseUtil.success(result);
 	}
 
-	@PutMapping("/{id}")
-	public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
-		return ResponseEntity.ok(userMapper.toDto(userService.updateUser(id, updateUserDto)));
+	@PutMapping("user/{id}")
+	public ResponseEntity<ApiResponse<UserDto>> updateUser(@PathVariable Long id,
+		@RequestBody UpdateUserDto updateUserDto) {
+		User updatedUser = userService.updateUser(id, updateUserDto);
+		UserDto result = userMapper.toDto(updatedUser);
+		return ResponseUtil.success(result);
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<User> deleteUser(@PathVariable Long id) {
+	@DeleteMapping("user/{id}")
+	public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long id) {
 		userService.deleteUser(id);
-		return ResponseEntity.ok().build();
+		return ResponseUtil.success("OK");
 	}
 }
