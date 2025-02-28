@@ -10,12 +10,23 @@ create table ani_place
     primary key (id)
 ) COMMENT '봉사장소' collate = utf8mb4_bin;
 
+create table ani_subway_line
+(
+    id           int(10)                             NOT NULL AUTO_INCREMENT comment '지하철호선 고유번호',
+    name         varchar(150)                        NOT NULL comment '호선명',
+    created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
+    updated_date timestamp DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP comment '업데이트일',
+    primary key (id)
+) COMMENT '지하철 호선 정보' collate = utf8mb4_bin;
+
 create table ani_subway
 (
     id           int(10)                             NOT NULL AUTO_INCREMENT comment '지하철역 고유번호',
-    city         varchar(50)                         NOT NULL comment '도시명',
-    name         varchar(150)                        NOT NULL comment '지하철역 이름',
+    code         int(10)                             NOT NULL comment '전철역코드',
+    line_id      int(10)                             NOT NULL comment '호선 고유번호',
+    name         varchar(150)                        NOT NULL comment '전철역명',
     created_date timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL comment '생성일',
+    updated_date timestamp DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP comment '업데이트일',
     primary key (id)
 ) COMMENT '지하철 정보' collate = utf8mb4_bin;
 
